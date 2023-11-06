@@ -22,6 +22,7 @@ To get started with this project, simply clone the repository and follow the ins
 - Spring Boot
 - Spring Data JPA
 - PostgreSQL
+- Flyway Migration
 
 ## License
 
