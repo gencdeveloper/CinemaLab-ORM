@@ -17,7 +17,7 @@ public class AccountDetails extends BaseEntity{
     private String name;
     private String postalCode;
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private UserRole role = UserRole.USER;
     private String state;
 
 

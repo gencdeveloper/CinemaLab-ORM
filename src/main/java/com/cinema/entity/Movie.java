@@ -11,34 +11,35 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Entity //hibernate will create
 
 @NoArgsConstructor
 @Data
 public class Movie extends BaseEntity{
-    private Integer duration;
     private String name;
-    private BigDecimal price;
+
     @Column(columnDefinition = "DATE")
     private LocalDate releaseDate;
+    private Integer duration;
 
-    @Enumerated(EnumType.STRING)
-    private MovieState state;
+    @Column(columnDefinition = "text")
+    private String summary;
 
     @Enumerated(EnumType.STRING)
     private MovieType type;
 
-    @Column(columnDefinition = "text")
-    private String summary;
+    @Enumerated(EnumType.STRING)
+    private MovieState state;
+
+    private BigDecimal price;
 
 
 
     @ManyToMany
     @JoinTable(
-            name = "MovieGenreRel",
+            name = "movie_genre_Rel",
             joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres;
 
 }
