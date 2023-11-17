@@ -3,7 +3,9 @@ package com.cinema.entity;
 import com.cinema.enums.MovieState;
 import com.cinema.enums.MovieType;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -14,7 +16,8 @@ import java.util.List;
 @Entity //hibernate will create
 
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Movie extends BaseEntity{
     private String name;
 

@@ -2,13 +2,17 @@ package com.cinema.entity;
 
 import com.cinema.enums.UserRole;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+
 public class AccountDetails extends BaseEntity{
     private String address;
     private int age;
@@ -22,6 +26,22 @@ public class AccountDetails extends BaseEntity{
 
 
 
+
     @OneToOne(mappedBy = "accountDetails")
     private UserAccount userAccount;
+
+
+    @Override
+    public String toString() {
+        return "AccountDetails{" +
+                "address='" + address + '\'' +
+                ", age=" + age +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", name='" + name + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", role=" + role +
+                ", state='" + state + '\'' +
+                '}';
+    }
 }
