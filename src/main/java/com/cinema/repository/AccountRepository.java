@@ -3,6 +3,7 @@ package com.cinema.repository;
 import com.cinema.entity.AccountDetails;
 import com.cinema.enums.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -29,7 +30,8 @@ public interface AccountRepository extends JpaRepository<AccountDetails,Long> {
     // ------------------- JPQL QUERIES ------------------- //
 
     //Write a JPQL query that returns all accounts
-
+    @Query("SELECT a FROM AccountDetails a WHERE a.userAccount = :accountType")
+    List<AccountDetails> findByAccountType(String accountType);
     //Write a JPQL query to list all admin accounts
 
     //Write a JPQL query to sort all accounts with age
