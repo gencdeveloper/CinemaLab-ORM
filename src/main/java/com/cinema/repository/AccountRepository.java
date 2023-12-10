@@ -4,6 +4,7 @@ import com.cinema.entity.AccountDetails;
 import com.cinema.enums.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -30,17 +31,32 @@ public interface AccountRepository extends JpaRepository<AccountDetails,Long> {
     // ------------------- JPQL QUERIES ------------------- //
 
     //Write a JPQL query that returns all accounts
-    @Query("SELECT a FROM AccountDetails a WHERE a.userAccount = :accountType")
-    List<AccountDetails> findByAccountType(String accountType);
+    @Query("SELECT a FROM AccountDetails a")
+    List<AccountDetails> fetchAllAccount();
+
     //Write a JPQL query to list all admin accounts
+    @Query("Select * from AccountDetails a where a.role = 'ADMIN'")
+    List<AccountDetails>findyByAdminAccount();
 
     //Write a JPQL query to sort all accounts with age
+    @Query("SELECT A FROM AccountDetails a ORDER BY a.age")
+    List<AccountDetails> fetchAllOrdeyByAge();
 
     // ------------------- Native QUERIES ------------------- //
 
     //Write a native query to read all accounts with an age lower than a specific value
+    @Query(value = "select * from account_details where age < :inputAge",nativeQuery = true)
+    List<AccountDetails> retrieveAllBasedOnAge(@Param("inputAge") Integer age);
 
     //Write a native query to read all accounts that a specific value can be containable in the name, address, country, state city
+    @Query(value = "select * from account_details where lower(name) LIKE lower(concat('%',?1,'%')) or" +
+            " address LIKE concat('%',?1,'%')"
+            +
+            " country LIKE concat('%',?1,'%')"
+            +
+            " state LIKE concat('%',?1,'%')"
+            +
+            " address LIKE concat('%',?1,'%')",nativeQuery = true)
+    List<AccountDetails> retrieveBySearchCriteria(String pattern);
 
-    //Write a native query to read all accounts with an age lower than a specific value
 }
