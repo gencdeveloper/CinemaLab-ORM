@@ -1,6 +1,6 @@
 package com.cinema.repository;
 
-import com.cinema.entity.AccountDetails;
+
 import com.cinema.entity.MovieCinema;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
