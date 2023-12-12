@@ -14,7 +14,7 @@ public interface CinemaRepository extends JpaRepository<Cinema,Long> {
 
 
     //Write a derived query to get cinema with a specific name
-    Optional<Cinema> findById(String name);
+    Optional<Cinema> findByName(String name);
 
     //Write a derived query to read sorted the top 3 cinemas that contains a specific sponsored name
     List<Cinema>findFirst3BySponsoredNameContainingOrderBySponsoredName(String sponsoredName);

@@ -1,5 +1,5 @@
 package com.cinema.enums;
 
 public enum UserRole {
-    USER
+    USER,ADMIN
 }

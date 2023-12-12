@@ -1,20 +1,54 @@
 package com.cinema.bootstrap;
 
-import com.cinema.repository.AccountRepository;
+import com.cinema.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Component
 public class DataGenerator implements CommandLineRunner {
 
-    private final AccountRepository accountRepository;
 
-    public DataGenerator(AccountRepository accountRepository) {
+    private final AccountRepository accountRepository;
+    private final CinemaRepository cinemaRepository;
+    private final MovieRepository movieRepository;
+    private final MovieCinemaRepository movieCinemaRepository;
+    private final TicketRepository ticketRepository;
+    private final GenreRepository genreRepository;
+    private final UserAccountRepository userAccountRepository;
+
+    public DataGenerator(CinemaRepository cinemaRepository, MovieRepository movieRepository, MovieCinemaRepository movieCinemaRepository, AccountRepository accountRepository, TicketRepository ticketRepository, GenreRepository genreRepository, UserAccountRepository userAccountRepository) {
         this.accountRepository = accountRepository;
+        this.cinemaRepository = cinemaRepository;
+        this.movieRepository = movieRepository;
+        this.movieCinemaRepository = movieCinemaRepository;
+        this.ticketRepository = ticketRepository;
+        this.genreRepository = genreRepository;
+        this.userAccountRepository = userAccountRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        System.out.println(cinemaRepository.findByName("Hall 1 - EMPIRE"));
+        System.out.println("------------------------");
+        System.out.println(accountRepository.fetchAdminAccounts());
+        System.out.println("------------------------");
+        System.out.println(cinemaRepository.distinctBySponsoredName());
+        System.out.println("------------------------");
+        System.out.println(movieRepository.fetchAllMovieNames());
+        System.out.println("------------------------");
+        System.out.println(movieCinemaRepository.countAllByCinemaId(4L));
+        System.out.println("------------------------");
+        System.out.println(movieCinemaRepository.retrieveAllByLocationName("AMC Empire 25"));
+        System.out.println("------------------------");
+        System.out.println(ticketRepository.fetchAllTicketsByUserAccount(4L));
+        System.out.println(ticketRepository.fetchAllTicketsBetweenRangeOfDateTimes(LocalDateTime.now().minusDays(1000), LocalDateTime.now()));
+        System.out.println(ticketRepository.retrieveAllBySearchCriteria("it"));
+        System.out.println(genreRepository.fetchAll());
+        System.out.println(userAccountRepository.fetchAllUsers());
 
 
 

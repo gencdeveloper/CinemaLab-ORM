@@ -29,11 +29,11 @@ public interface MovieRepository extends JpaRepository<Movie,Long> {
 
     //Write a JPQL query to list all movies between a range of prices
 
-    @Query("SELECT m from Movie m where m.price between ?1 and ?2")
+    @Query("SELECT m FROM Movie m WHERE m.price BETWEEN ?1 AND ?2")
     List<Movie> getByPriceBetween(BigDecimal priceStart, BigDecimal priceEnd);
     //Write a JPQL query that returns all movie names
-    @Query("select name from Movie")
-    List<Movie> fetchAllMovieNames();
+    @Query("SELECT m.name FROM Movie m")
+    List<String> fetchAllMovieNames();
 
     // ------------------- Native QUERIES ------------------- //
 

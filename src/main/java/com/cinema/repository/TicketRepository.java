@@ -27,13 +27,13 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
 
     //Write a JPQL query that returns all tickets between a range of dates
     @Query("Select t From Ticket t where t.dateTime between ?1 and ?2")
-    List<Ticket> fetchAllTicketBetweenRangeOfDateTimes(LocalDateTime dateTime, LocalDateTime dateTime2);
+    List<Ticket> fetchAllTicketsBetweenRangeOfDateTimes(LocalDateTime dateTime, LocalDateTime dateTime2);
 
     // ------------------- Native QUERIES ------------------- //
 
     //Write a native query to count the number of tickets a user bought
-    @Query(value = "select count(*) fromt ticket where user_account_id = ?1",nativeQuery = true)
-    Integer countAllTicketsByUserAccount(Long userId);
+    @Query(value = "select count(*) from ticket where user_account_id = ?1",nativeQuery = true)
+    Integer fetchAllTicketsByUserAccount(Long userId);
 
     //Write a native query to count the number of tickets a user bought in a specific range of dates
     @Query(value = "Select count(*) from ticket where user_account_id = ?1 and data_time between ?2 and ?3",nativeQuery = true)
@@ -52,10 +52,13 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
     @Query(value = "select * from ticket",nativeQuery = true)
     List<Ticket> retrieveAll();
     //Write a native query to list all tickets where a specific value should be containable in the username or account name or movie name
-    @Query(value = "select * from ticket t join user_account ua on t.user_account_id = ua.id " +
-            "join account_details ad on ua.account_details_id = ad.id join movie_cinema mc" +
-            "on t.movie_cinema_id = mc.id join movie m on mc.movie_id = m.id" +
-            "where ua.username ILIKE concat('%',?1,'%') or ad.name ilike concat('%',?1,'%') or" +
-            "m.name ilike concat('%',?1,'%')",nativeQuery = true)
+    @Query(value = "SELECT * FROM ticket t " +
+            "JOIN user_account ua ON t.user_account_id = ua.id " +
+            "JOIN account_details ad ON ua.account_details_id = ad.id " +
+            "JOIN movie_cinema mc ON t.movie_cinema_id = mc.id " +
+            "JOIN movie m ON mc.movie_id = m.id " +
+            "WHERE ua.username ILIKE CONCAT('%',?1,'%') OR " +
+            "ad.name ILIKE CONCAT('%',?1,'%') OR " +
+            "m.name ILIKE CONCAT('%',?1,'%')", nativeQuery = true)
     List<Ticket> retrieveAllBySearchCriteria(String keyword);
 }

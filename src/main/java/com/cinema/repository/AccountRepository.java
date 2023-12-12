@@ -35,11 +35,11 @@ public interface AccountRepository extends JpaRepository<AccountDetails,Long> {
     List<AccountDetails> fetchAllAccount();
 
     //Write a JPQL query to list all admin accounts
-    @Query("Select * from AccountDetails a where a.role = 'ADMIN'")
-    List<AccountDetails>findyByAdminAccount();
+    @Query("SELECT a FROM AccountDetails a WHERE a.role = 'ADMIN'")
+    List<AccountDetails> fetchAdminAccounts();
 
     //Write a JPQL query to sort all accounts with age
-    @Query("SELECT A FROM AccountDetails a ORDER BY a.age")
+    @Query(value = "SELECT A FROM AccountDetails a ORDER BY a.age",nativeQuery = true)
     List<AccountDetails> fetchAllOrdeyByAge();
 
     // ------------------- Native QUERIES ------------------- //
